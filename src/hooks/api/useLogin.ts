@@ -2,10 +2,10 @@ import { BASE_URL, LOGIN } from "@/constants/api";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 
-interface LoginValues {
+type LoginValues = {
   email: string;
   password: string;
-}
+};
 
 const instance = axios.create({
   baseURL: BASE_URL,

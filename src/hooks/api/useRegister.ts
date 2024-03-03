@@ -2,7 +2,7 @@ import { BASE_URL, REGISTER } from "@/constants/api";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 
-interface RegistrationValues {
+type RegistrationValues = {
   first_name?: string;
   last_name?: string;
   email: string;
@@ -15,7 +15,7 @@ interface RegistrationValues {
   profession?: string;
   team_size?: string;
   know_about_us?: string;
-}
+};
 
 const instance = axios.create({
   baseURL: BASE_URL,

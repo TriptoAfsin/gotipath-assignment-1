@@ -21,6 +21,22 @@ function LoginFooterSection() {
             alt="google login"
           />
         </button>
+        <button className="border border-border-default p-2.5 rounded shadow-sm hover:bg-bg-fill transition">
+          <Image
+            src={"/assets/icons/jira.svg"}
+            width={20}
+            height={20}
+            alt="google login"
+          />
+        </button>
+        <button className="border border-border-default p-2.5 rounded shadow-sm hover:bg-bg-fill transition">
+          <Image
+            src={"/assets/icons/circle.svg"}
+            width={20}
+            height={20}
+            alt="google login"
+          />
+        </button>
       </div>
     </>
   );

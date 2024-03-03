@@ -6,10 +6,10 @@ type SpinnerVariant =
   | "success"
   | "warning";
 
-interface SpinnerLoaderProps {
+type SpinnerLoaderProps = {
   size?: SpinnerSize;
   variant?: SpinnerVariant;
-}
+};
 
 function SpinnerLoader({
   size = "sm",

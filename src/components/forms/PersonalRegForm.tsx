@@ -19,13 +19,12 @@ import Label from "../Typography/Label";
 import ResponsiveFlex from "../layout/ResponsiveFlex";
 
 const FormSchema = z.object({
-  first_name: z
-    .string()
-    .min(1, { message: "First name must be at least 1 characters." }),
-  last_name: z
-    .string()
-    .min(1, { message: "Last name must be at least 1 characters." }),
+  first_name: z.string().min(1, { message: "First name is required" }),
+  last_name: z.string().min(1, { message: "Last name is required" }),
   email: z.string().email(),
+  phone: z
+    .string()
+    .regex(/(^(01){1}[3456789]{1}(\d){8})$/, "Invalid phone number"),
   password: z
     .string()
     .min(4, { message: "Password must be at least 4 characters." }),
@@ -35,6 +34,9 @@ function PersonalRegForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      first_name: "",
+      last_name: "",
+      phone: "",
       email: "",
       password: "",
     },
@@ -93,6 +95,24 @@ function PersonalRegForm() {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your email address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5">
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter your phone number"
+                    {...field}
+                    type="tel"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
