@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -16,16 +15,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import Link from "next/link";
+import Label from "../Typography/Label";
+import ResponsiveFlex from "../layout/ResponsiveFlex";
 
 const FormSchema = z.object({
+  first_name: z
+    .string()
+    .min(1, { message: "First name must be at least 1 characters." }),
+  last_name: z
+    .string()
+    .min(1, { message: "Last name must be at least 1 characters." }),
   email: z.string().email(),
   password: z
     .string()
     .min(4, { message: "Password must be at least 4 characters." }),
 });
 
-function LoginForm() {
+function PersonalRegForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -49,6 +55,36 @@ function LoginForm() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mb-5">
+          <div>
+            <Label>Name</Label>
+
+            <ResponsiveFlex>
+              <FormField
+                control={form.control}
+                name="first_name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5 mb-5 mr-2">
+                    <FormControl>
+                      <Input placeholder="First Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="last_name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5 mb-5">
+                    <FormControl>
+                      <Input placeholder="Last Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </ResponsiveFlex>
+          </div>
           <FormField
             control={form.control}
             name="email"
@@ -68,10 +104,10 @@ function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem className="space-y-1.5 mb-5">
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Create Password</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter password"
+                    placeholder="Enter new password"
                     {...field}
                     type="password"
                   />
@@ -80,25 +116,9 @@ function LoginForm() {
               </FormItem>
             )}
           />
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-2">
-              <Checkbox id="terms" />
-              <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Remember me for 7 days
-              </label>
-            </div>
-            <Link
-              href="/auth/reset-password"
-              className="text-sm font-medium text-primary"
-            >
-              Forgot Password?
-            </Link>
-          </div>
+
           <Button type="submit" className="w-full">
-            Login
+            Register
           </Button>
         </form>
       </Form>
@@ -106,4 +126,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default PersonalRegForm;

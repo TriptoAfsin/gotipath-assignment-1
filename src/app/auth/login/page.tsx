@@ -5,8 +5,8 @@ import Divider from "@/components/layout/Divider";
 import ResponsiveFlex from "@/components/layout/ResponsiveFlex";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import LoginFooterSection from "./_sections/LoginFooterSection";
+import LoginNewUserSection from "./_sections/LoginNewUserSection";
 import LoginTitleSection from "./_sections/LoginTitleSection";
 export const metadata: Metadata = {
   title: "Login | Gotipath",
@@ -27,12 +27,7 @@ function LoginPage() {
             <LoginFooterSection />
           </section>
         </div>
-        <div className="flex items-center justify-center ">
-          <p className="text-sm font-medium text-center">New to Gotipath? </p>
-          <Link href={"/auth/register"} className="ml-1 text-primary">
-            Create Account
-          </Link>
-        </div>
+        <LoginNewUserSection />
       </div>
       <div className="lg:min-w-[720px]">
         <Image
