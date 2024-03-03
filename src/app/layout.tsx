@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers/provider";
 import type { Metadata } from "next";
@@ -26,8 +27,10 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
+        suppressHydrationWarning={true}
       >
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
