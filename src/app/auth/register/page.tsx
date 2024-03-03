@@ -14,9 +14,9 @@ function RegisterPage() {
         <Logo width={155} height={155} />
         <RegisterForm />
       </div>
-      <div className="min-w-[720px]">
+      <div className="lg:min-w-[720px]">
         <Image
-          src={"/images/account_bg.png"}
+          src={"/assets/account_bg.png"}
           alt="account background"
           className="h-screen object-cover w-full"
           width={1000}

@@ -1,15 +1,19 @@
 import Image from "next/image";
 
-type LogoProps = {
+type TitleIconProps = {
   width?: number;
   height?: number;
   className?: React.HTMLAttributes<HTMLImageElement>["className"];
 };
 
-function Logo({ width = 170, height = 170, className = "" }: LogoProps) {
+function TitleIcon({
+  width = 50,
+  height = 50,
+  className = "",
+}: TitleIconProps) {
   return (
     <Image
-      src={"/assets/logo.svg"}
+      src={"/assets/icons/titleIcon.png"}
       alt="logo"
       width={width}
       height={height}
@@ -18,4 +22,4 @@ function Logo({ width = 170, height = 170, className = "" }: LogoProps) {
   );
 }
 
-export default Logo;
+export default TitleIcon;
