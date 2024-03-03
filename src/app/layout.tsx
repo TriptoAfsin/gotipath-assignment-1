@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Providers from "@/providers/provider";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
@@ -26,7 +27,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
