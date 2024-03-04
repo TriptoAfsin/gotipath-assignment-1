@@ -12,12 +12,15 @@ This is a Next.js app router based project made for interacting a backend authen
 ## Features
 
 1. 📱 Fully responsive(both mobile and desktop)
+   <br/>
    <img src="responsive.png" />
 1. 🔒 Authenticated routes can't be accessed without logging in
 1. 💪 Robust form validation
 1. 🔑 Password strength checker
+   <br/>
    <img src="pass-check.png" />
 1. 🔍 Optimized SEO and meta tags
+   <br/>
    <img src="seo.png" />
 
 ## Project Structure
