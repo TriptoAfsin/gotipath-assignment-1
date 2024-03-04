@@ -1,6 +1,7 @@
 import Logo from "@/components/common/Logo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import ImageIcon from "@/components/Icons/ImageIcon";
 import Label from "@/components/Typography/Label";
 import TitleIcon from "@/components/common/TitleIcon";
 import CorporateRegForm from "@/components/forms/CorporateRegForm";
@@ -29,9 +30,17 @@ function RegisterPage() {
             <Tabs defaultValue="personal" className="w-full md:w-[400px]">
               <TabsList className="w-full">
                 <TabsTrigger value="personal" className="w-full">
+                  <ImageIcon
+                    src="/assets/icons/personal.svg"
+                    className="mx-2"
+                  />
                   Personal
                 </TabsTrigger>
                 <TabsTrigger value="corporate" className="w-full">
+                  <ImageIcon
+                    src="/assets/icons/corporate.svg"
+                    className="mx-2"
+                  />
                   Corporate
                 </TabsTrigger>
               </TabsList>
