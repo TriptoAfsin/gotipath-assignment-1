@@ -27,6 +27,7 @@ import {
 } from "@/constants/menuList";
 import { useRegister } from "@/hooks/api/useRegister";
 import { setLocal } from "@/utils/storageUtils";
+import { checkPassString } from "@/utils/stringUtils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -94,11 +95,20 @@ function CorporateRegForm() {
   } = useRegister(onSuccessFunc, onErrorFunc, queryClient);
 
   function onSubmit(data: any) {
-    registerMutate({
-      ...data,
-      type: "bussiness",
-      accept_terms_and_conditions: true,
-    });
+    const { hasUpperCase, hasLowerCase, hasSymbol, isAtleastMinChars } =
+      checkPassString(data?.password, 8);
+    if (hasUpperCase && hasLowerCase && hasSymbol && isAtleastMinChars) {
+      registerMutate({
+        ...data,
+        type: "bussiness",
+        accept_terms_and_conditions: true,
+      });
+    } else {
+      toast({
+        title: "Invalid password",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

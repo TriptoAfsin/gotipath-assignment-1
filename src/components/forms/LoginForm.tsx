@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { useLogin } from "@/hooks/api/useLogin";
 import { setLocal } from "@/utils/storageUtils";
+import { checkPassString } from "@/utils/stringUtils";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,10 @@ const FormSchema = z.object({
   email: z.string().email(),
   password: z
     .string()
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-=_+{};':"|,.<>?]).*$/,
+      "Invalid password"
+    )
     .min(8, { message: "Password must be at least 8 characters." }),
 });
 
@@ -62,7 +67,16 @@ function LoginForm() {
   } = useLogin(onSuccessFunc, onErrorFunc, queryClient);
 
   function onSubmit(data: any) {
-    loginMutate(data);
+    const { hasUpperCase, hasLowerCase, hasSymbol, isAtleastMinChars } =
+      checkPassString(data?.password, 8);
+    if (hasUpperCase && hasLowerCase && hasSymbol && isAtleastMinChars) {
+      loginMutate(data);
+    } else {
+      toast({
+        title: "Invalid password",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
