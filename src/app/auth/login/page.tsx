@@ -33,7 +33,7 @@ function LoginPage() {
         <Image
           src={"/assets/account_bg.png"}
           alt="account background"
-          className="h-screen object-cover w-full"
+          className="hidden lg:block h-screen object-cover w-full"
           width={1000}
           height={1000}
         />

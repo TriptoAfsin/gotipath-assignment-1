@@ -15,7 +15,7 @@ function DashboardPage() {
         <Sidebar>
           <SidebarList />
         </Sidebar>
-        <div className="w-2/4 flex content-center justify-center">
+        <div className="w-screen lg:w-2/4 flex content-center justify-center">
           <DashboardMainSection />
         </div>
       </div>
