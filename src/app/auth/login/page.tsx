@@ -30,7 +30,7 @@ function LoginPage() {
         </div>
         <PrivacyLegalSection />
       </div>
-      <div className="lg:min-w-[720px]">
+      <div className="lg:min-w-[720px] lg:max-w-[720px]">
         <Image
           src={"/assets/account_bg.png"}
           alt="account background"
