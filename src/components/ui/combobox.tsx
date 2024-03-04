@@ -54,9 +54,9 @@ function ComboBox({
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>Nothing found.</CommandEmpty>
           <CommandGroup>
-            {data.map(item => (
+            {data.map((item, i) => (
               <CommandItem
-                key={item.value}
+                key={i}
                 value={item.value}
                 onSelect={currentValue => {
                   setValue(currentValue === value ? "" : currentValue);
