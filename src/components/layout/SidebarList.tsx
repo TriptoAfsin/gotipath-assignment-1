@@ -1,4 +1,5 @@
 "use client";
+import ImageIcon from "@/components/Icons/ImageIcon";
 import useCheckAuth from "@/hooks/security/useCheckAuth";
 import Link from "next/link";
 import { BiSupport } from "react-icons/bi";
@@ -7,7 +8,6 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { HiDocumentReport } from "react-icons/hi";
 import { RiBillLine } from "react-icons/ri";
 import { TiDocumentText } from "react-icons/ti";
-import ImageIcon from "../Icons/ImageIcon";
 
 const listItems = {
   "Content Delivery": [

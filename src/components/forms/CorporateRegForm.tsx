@@ -8,6 +8,8 @@ import Label from "@/components/Typography/Label";
 import ResponsiveFlex from "@/components/layout/ResponsiveFlex";
 import { Button } from "@/components/ui/button";
 
+import PasswordCheck from "@/components/misc/PasswordCheck";
+import Combobox from "@/components/ui/combobox";
 import {
   Form,
   FormControl,
@@ -27,8 +29,6 @@ import { useRegister } from "@/hooks/api/useRegister";
 import { setLocal } from "@/utils/storageUtils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import PasswordCheck from "../misc/PasswordCheck";
-import Combobox from "../ui/combobox";
 
 const FormSchema = z.object({
   first_name: z.string().min(1, { message: "First name is required" }),

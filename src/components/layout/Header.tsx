@@ -1,6 +1,6 @@
+import UserMenu from "@/components/Menu/UserMenu";
 import Logo from "@/components/common/Logo";
 import Link from "next/link";
-import UserMenu from "../Menu/UserMenu";
 
 type HeaderProps = {
   showAccountMenu?: boolean;
