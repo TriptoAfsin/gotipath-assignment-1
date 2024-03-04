@@ -60,7 +60,7 @@ function RegisterPage() {
           <PrivacyLegalSection />
         </div>
       </div>
-      <div className="lg:max-w-[765px] ">
+      <div className="lg:max-w-[765px] lg:min-w-[765px]">
         <Image
           src={"/assets/bigger_account_bg.png"}
           alt="account background"
