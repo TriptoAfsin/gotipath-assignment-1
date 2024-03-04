@@ -9,9 +9,9 @@ const getLocal = (name: string) => {
       return;
     }
     try {
-      const auth = JSON.parse(lsValue);
-      if (auth) {
-        return auth;
+      const data = JSON.parse(lsValue);
+      if (data) {
+        return data;
       }
     } catch (error) {
       console.error("LOCAL STORAGE PARSE ERROR", error);
@@ -19,13 +19,13 @@ const getLocal = (name: string) => {
   }
 };
 
-const setLocal = (name: string, auth: any) => {
+const setLocal = (name: string, data: any) => {
   if (!localStorage) {
     return;
   }
 
   try {
-    const lsValue = JSON.stringify(auth);
+    const lsValue = JSON.stringify(data);
     localStorage.setItem(name, lsValue);
   } catch (error) {
     console.error("LOCAL STORAGE SAVE ERROR", error);
@@ -40,7 +40,7 @@ const removeLocal = (name: string) => {
   try {
     localStorage.removeItem(name);
   } catch (error) {
-    console.error("AUTH LOCAL STORAGE REMOVE ERROR", error);
+    console.error("LOCAL STORAGE REMOVE ERROR", error);
   }
 };
 

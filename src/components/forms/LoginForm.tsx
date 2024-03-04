@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,7 +15,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { useLogin } from "@/hooks/api/useLogin";
+import { setLocal } from "@/utils/storageUtils";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -26,6 +29,9 @@ const FormSchema = z.object({
 });
 
 function LoginForm() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -34,15 +40,31 @@ function LoginForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  const onSuccessFunc = (data: any) => {
+    console.log("login data", data);
+    setLocal("user_info", data);
     toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      title: "Login Successful 😁",
     });
+    router.push("/dashboard");
+  };
+
+  const onErrorFunc = (error: any) => {
+    console.error("login error", error);
+    toast({
+      title: "Login Failed 😢",
+      variant: "destructive",
+    });
+  };
+
+  const {
+    mutate: loginMutate,
+    isPending: loginLoading,
+    isError: loginErr,
+  } = useLogin(onSuccessFunc, onErrorFunc, queryClient);
+
+  function onSubmit(data: any) {
+    loginMutate(data);
   }
 
   return (
@@ -97,7 +119,7 @@ function LoginForm() {
               Forgot Password?
             </Link>
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={loginLoading}>
             Login
           </Button>
         </form>

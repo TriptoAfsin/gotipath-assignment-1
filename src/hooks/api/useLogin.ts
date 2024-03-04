@@ -22,8 +22,8 @@ const handleLogin: any = async (
 };
 
 export const useLogin = (
-  onSuccessFunc: (data: AxiosResponse) => void,
-  onErrorFunc: (error: Error) => void,
+  onSuccessFunc: (data: AxiosResponse) => any,
+  onErrorFunc: (error: Error) => any,
   queryClient: any
 ) => {
   const options: any = {
