@@ -84,3 +84,11 @@ npm run build
 ```
 
 ### 🚀 Live Link: [Gotipath](https://gotipath-triptex.vercel.app/)
+
+### APIs Implemeted -
+
+1. /auth/register (`useRegister` hook)
+1. /auth/login (`useLogin` hook)
+1. /auth/logout (Bonus) (`useLogout` hook)
+
+<p align="center"><b>Made with 💝 by Afshin Nahian Tripto</b></p>
