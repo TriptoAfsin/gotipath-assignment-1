@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import SidebarList from "@/components/layout/SidebarList";
 import type { Metadata } from "next";
+import DashboardMainSection from "./_sections/DashboardMainSection";
 export const metadata: Metadata = {
   title: "Dashboard | Gotipath",
   description: "Dashboard for Gotipath Cloud Console",
@@ -15,9 +16,7 @@ function DashboardPage() {
           <SidebarList />
         </Sidebar>
         <div className="w-2/4 flex content-center justify-center">
-          <h2 className="text-2xl font-semibold py-10">
-            Welcome to your dashboard 😁
-          </h2>
+          <DashboardMainSection />
         </div>
       </div>
     </>

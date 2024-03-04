@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-    if (getLocal("user_info")?.access_token) {
+    if (getLocal("user_info")?.data?.access_token) {
       router.push("/dashboard");
     } else {
       router.push("/auth/login");

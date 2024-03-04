@@ -44,7 +44,7 @@ function LoginForm() {
     console.log("login data", data);
     setLocal("user_info", data);
     toast({
-      title: "Login Successful 😁",
+      title: "Login successful 😁",
     });
     router.push("/dashboard");
   };
@@ -52,7 +52,7 @@ function LoginForm() {
   const onErrorFunc = (error: any) => {
     console.error("login error", error);
     toast({
-      title: "Login Failed 😢",
+      title: "Login failed 😢",
       variant: "destructive",
     });
   };
@@ -120,7 +120,7 @@ function LoginForm() {
             </Link>
           </div>
           <Button type="submit" className="w-full" disabled={loginLoading}>
-            Login
+            {loginLoading ? "Please wait..." : "Login"}
           </Button>
         </form>
       </Form>

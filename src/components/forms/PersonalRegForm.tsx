@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { useRegister } from "@/hooks/api/useRegister";
+import { setLocal } from "@/utils/storageUtils";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import Label from "../Typography/Label";
 import ResponsiveFlex from "../layout/ResponsiveFlex";
 
@@ -31,6 +35,8 @@ const FormSchema = z.object({
 });
 
 function PersonalRegForm() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -42,14 +48,38 @@ function PersonalRegForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  const onSuccessFunc = (data: any) => {
+    console.log("reg data", data);
+    setLocal("user_info", data);
     toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      title: "Registration was successful 😁",
+    });
+    router.push("/dashboard");
+  };
+
+  const onErrorFunc = (error: any) => {
+    console.error("login error", error);
+    toast({
+      title: "Registration failed 😢",
+      variant: "destructive",
+    });
+  };
+
+  const {
+    mutate: registerMutate,
+    isPending: registerLoading,
+    isError: registerErr,
+  } = useRegister(onSuccessFunc, onErrorFunc, queryClient);
+
+  function onSubmit(data: any) {
+    registerMutate({
+      ...data,
+      type: "personal",
+      accept_terms_and_conditions: true,
+      profession: "engineer",
+      country: "BD",
+      team_size: "10-50",
+      company_name: "Gotipath",
     });
   }
 
@@ -137,8 +167,8 @@ function PersonalRegForm() {
             )}
           />
 
-          <Button type="submit" className="w-full">
-            Register
+          <Button type="submit" className="w-full" disabled={registerLoading}>
+            {registerLoading ? "Please wait..." : "Register"}
           </Button>
         </form>
       </Form>

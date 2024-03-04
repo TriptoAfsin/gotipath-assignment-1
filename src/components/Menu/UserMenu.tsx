@@ -8,16 +8,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useCheckAuth from "@/hooks/security/useCheckAuth";
 import { removeLocal } from "@/utils/storageUtils";
 import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 
 function UserMenu() {
   const router = useRouter();
+  const { checking } = useCheckAuth();
   const handleLogout = () => {
     removeLocal("user_info");
     router.push("/auth/login");
   };
+
+  if (checking) {
+    return null;
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

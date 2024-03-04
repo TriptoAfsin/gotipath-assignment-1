@@ -6,7 +6,7 @@ import axios, { AxiosResponse } from "axios";
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${getLocal("user_info")?.access_token}`,
+    Authorization: `Bearer ${getLocal("user_info")?.data?.access_token}`,
   },
 });
 

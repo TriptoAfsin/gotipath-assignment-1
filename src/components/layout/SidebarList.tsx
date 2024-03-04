@@ -1,3 +1,5 @@
+"use client";
+import useCheckAuth from "@/hooks/security/useCheckAuth";
 import Link from "next/link";
 import { BiSupport } from "react-icons/bi";
 import { CiStreamOn } from "react-icons/ci";
@@ -61,6 +63,10 @@ const listItems = {
 };
 
 function SidebarList() {
+  const { checking } = useCheckAuth();
+  if (checking) {
+    return null;
+  }
   return (
     <div className="flex flex-col gap-4 mt-4 ml-2 mr-10">
       <>

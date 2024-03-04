@@ -25,8 +25,8 @@ const handleRegister: any = async (
   values: RegistrationValues
 ): Promise<AxiosResponse> => {
   const requestBody = {
+    ...values,
     email: values.email.toLowerCase(),
-    password: values.password,
   };
   return instance.post(`${REGISTER}`, requestBody);
 };
