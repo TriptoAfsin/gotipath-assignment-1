@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { toast } from "@/components/ui/use-toast";
 import {
   COUNTRY_MENU_LIST,
@@ -255,11 +256,7 @@ function CorporateRegForm() {
               <FormItem className="space-y-1.5 mb-5">
                 <FormLabel>Create Password</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter new password"
-                    {...field}
-                    type="password"
-                  />
+                  <PasswordInput placeholder="Enter new password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

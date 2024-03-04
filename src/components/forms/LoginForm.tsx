@@ -21,6 +21,7 @@ import { checkPassString } from "@/utils/stringUtils";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "../ui/password-input";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -104,11 +105,7 @@ function LoginForm() {
               <FormItem className="space-y-1.5 mb-5">
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter password"
-                    {...field}
-                    type="password"
-                  />
+                  <PasswordInput placeholder="Enter password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
