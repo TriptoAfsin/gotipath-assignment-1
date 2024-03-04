@@ -70,7 +70,6 @@ function PersonalRegForm() {
   const passToCheck = useWatch({ name: "password", control: form?.control });
 
   const onSuccessFunc = (data: any) => {
-    console.log("reg data", data);
     setLocal("user_info", data);
     toast({
       title: "Registration was successful 😁",

@@ -69,7 +69,6 @@ function CorporateRegForm() {
   const passToCheck = useWatch({ name: "password", control: form?.control });
 
   const onSuccessFunc = (data: any) => {
-    console.log("reg data", data);
     setLocal("user_info", data);
     toast({
       title: "Registration was successful 😁",
@@ -78,7 +77,6 @@ function CorporateRegForm() {
   };
 
   const onErrorFunc = (error: any) => {
-    console.error("reg error", error);
     toast({
       title: error?.response?.data?.details
         ? error?.response?.data?.details
