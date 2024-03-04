@@ -62,7 +62,7 @@ const listItems = {
 
 function SidebarList() {
   return (
-    <div className="flex flex-col gap-4 mt-4">
+    <div className="flex flex-col gap-4 mt-4 ml-2 mr-10">
       <>
         <h2 className="text-xs font-bold text-gray-500">Content Delivery</h2>
         <ul className="list-none pl-2 text-sm">

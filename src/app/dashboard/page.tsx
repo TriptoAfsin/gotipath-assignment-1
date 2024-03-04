@@ -10,9 +10,16 @@ function DashboardPage() {
   return (
     <>
       <Header />
-      <Sidebar>
-        <SidebarList />
-      </Sidebar>
+      <div className="flex ">
+        <Sidebar>
+          <SidebarList />
+        </Sidebar>
+        <div className="w-2/4 flex content-center justify-center">
+          <h2 className="text-2xl font-semibold py-10">
+            Welcome to your dashboard 😁
+          </h2>
+        </div>
+      </div>
     </>
   );
 }

@@ -6,11 +6,8 @@ type SidebarProps = {
 
 function Sidebar({ children }: SidebarProps) {
   return (
-    <div className="flex">
-      <div
-        className="w-1/6 px-4 min-h-screen"
-        style={{ borderRight: "1px solid #ccc" }}
-      >
+    <div className="flex w-1/4">
+      <div className="w-100 px-4 min-h-screen border-r border-border-default">
         <div className="sticky top-0">{children}</div>
       </div>
     </div>
