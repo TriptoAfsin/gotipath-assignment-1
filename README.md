@@ -67,4 +67,4 @@ npm run dev
 npm run build
 ```
 
-### 🚀 Live Link: [Gotipath]()
+### 🚀 Live Link: [Gotipath](https://gotipath-triptex.vercel.app/)
