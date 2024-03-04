@@ -46,7 +46,7 @@ const FormSchema = z.object({
   company_name: z.string().min(1, { message: "Organization name is required" }),
   password: z
     .string()
-    .min(4, { message: "Password must be at least 4 characters." }),
+    .min(8, { message: "Password must be at least 8 characters." }),
 });
 
 function CorporateRegForm() {
@@ -78,7 +78,11 @@ function CorporateRegForm() {
   const onErrorFunc = (error: any) => {
     console.error("reg error", error);
     toast({
-      title: error?.response?.data?.message || "Registration failed 😢",
+      title: error?.response?.data?.details
+        ? error?.response?.data?.details
+        : error?.response?.data?.message
+        ? error?.response?.data?.message
+        : "Registration failed 😢",
       variant: "destructive",
     });
   };

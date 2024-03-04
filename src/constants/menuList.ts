@@ -23,20 +23,8 @@ export const PROFESSION_MENU_LIST = [
 
 export const TEAM_SIZE_MENU_LIST = [
   {
-    label: "1-10",
-    value: "1-10",
-  },
-  {
-    label: "10-20",
-    value: "10-20",
-  },
-  {
-    label: "20-30",
-    value: "20-30",
-  },
-  {
-    label: "30-40",
-    value: "30-40",
+    label: "10-50",
+    value: "10-50",
   },
   {
     label: "50-100",
