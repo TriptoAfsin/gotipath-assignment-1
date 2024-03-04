@@ -41,7 +41,6 @@ function LoginForm() {
   });
 
   const onSuccessFunc = (data: any) => {
-    console.log("login data", data);
     setLocal("user_info", data);
     toast({
       title: "Login successful 😁",
@@ -50,7 +49,6 @@ function LoginForm() {
   };
 
   const onErrorFunc = (error: any) => {
-    console.error("login error", error);
     toast({
       title: error?.response?.data?.message || "Login failed 😢",
       variant: "destructive",

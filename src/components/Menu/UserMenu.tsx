@@ -8,15 +8,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLogout } from "@/hooks/api/useLogout";
 import useCheckAuth from "@/hooks/security/useCheckAuth";
 import { removeLocal } from "@/utils/storageUtils";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
+import { toast } from "../ui/use-toast";
 
 function UserMenu() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { checking } = useCheckAuth();
+
+  const onSuccessFunc = () => {
+    toast({
+      title: "Logged out",
+    });
+  };
+
+  const onErrorFunc = (error: any) => {};
+  const { mutate: logoutMutate } = useLogout(
+    onSuccessFunc,
+    onErrorFunc,
+    queryClient
+  );
   const handleLogout = () => {
+    logoutMutate();
     removeLocal("user_info");
     router.push("/auth/login");
   };
