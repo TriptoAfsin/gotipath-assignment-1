@@ -6,8 +6,8 @@ function RegOldUserSection() {
       <p className="text-sm font-medium text-center">
         Already a Gotipath member?{" "}
       </p>
-      <Link href={"/auth/login"} className="ml-1 text-primary">
-        Login
+      <Link href={"/auth/login"} className="ml-1 text-primary font-semibold">
+        Sign in
       </Link>
     </div>
   );

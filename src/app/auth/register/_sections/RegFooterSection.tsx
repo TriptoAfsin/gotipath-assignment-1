@@ -1,6 +1,7 @@
 "use client";
 import { toast } from "@/components/ui/use-toast";
 import Image from "next/image";
+import RegOldUserSection from "./RegOldUserSection";
 
 function RegFooterSection() {
   const showToast = () => {
@@ -57,6 +58,7 @@ function RegFooterSection() {
           />
         </button>
       </div>
+      <RegOldUserSection />
     </>
   );
 }

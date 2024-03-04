@@ -11,8 +11,8 @@ import ResponsiveFlex from "@/components/layout/ResponsiveFlex";
 import { ACCOUNT_BG_BH } from "@/constants/blurhashData";
 import type { Metadata } from "next";
 import Image from "next/image";
+import PrivacyLegalSection from "./_sections/PrivacyLegalSection";
 import RegFooterSection from "./_sections/RegFooterSection";
-import RegOldUserSection from "./_sections/RegOldUserSection";
 import RegTitleSection from "./_sections/RegTitleSection";
 export const metadata: Metadata = {
   title: "Register | Gotipath",
@@ -56,13 +56,15 @@ function RegisterPage() {
             </Tabs>
           </section>
         </div>
-        <RegOldUserSection />
+        <div className="my-5">
+          <PrivacyLegalSection />
+        </div>
       </div>
-      <div className="lg:min-w-[720px]">
+      <div className="lg:max-w-[765px] ">
         <Image
-          src={"/assets/account_bg.png"}
+          src={"/assets/bigger_account_bg.png"}
           alt="account background"
-          className="hidden lg:block h-screen object-cover w-full"
+          className="hidden lg:block  object-cover w-full "
           width={1000}
           height={1000}
           blurDataURL={ACCOUNT_BG_BH}

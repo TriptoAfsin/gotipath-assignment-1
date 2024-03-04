@@ -7,8 +7,8 @@ import { ACCOUNT_BG_BH } from "@/constants/blurhashData";
 import type { Metadata } from "next";
 import Image from "next/image";
 import LoginFooterSection from "./_sections/LoginFooterSection";
-import LoginNewUserSection from "./_sections/LoginNewUserSection";
 import LoginTitleSection from "./_sections/LoginTitleSection";
+import PrivacyLegalSection from "./_sections/PrivacyLegalSection";
 export const metadata: Metadata = {
   title: "Login | Gotipath",
   description: "Login to Gotipath",
@@ -28,7 +28,7 @@ function LoginPage() {
             <LoginFooterSection />
           </section>
         </div>
-        <LoginNewUserSection />
+        <PrivacyLegalSection />
       </div>
       <div className="lg:min-w-[720px]">
         <Image
