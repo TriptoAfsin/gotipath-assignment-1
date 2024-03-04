@@ -3,6 +3,7 @@ import TitleIcon from "@/components/common/TitleIcon";
 import LoginForm from "@/components/forms/LoginForm";
 import Divider from "@/components/layout/Divider";
 import ResponsiveFlex from "@/components/layout/ResponsiveFlex";
+import { ACCOUNT_BG_BH } from "@/constants/blurhashData";
 import type { Metadata } from "next";
 import Image from "next/image";
 import LoginFooterSection from "./_sections/LoginFooterSection";
@@ -36,6 +37,7 @@ function LoginPage() {
           className="hidden lg:block h-screen object-cover w-full"
           width={1000}
           height={1000}
+          blurDataURL={ACCOUNT_BG_BH}
         />
       </div>
     </ResponsiveFlex>
