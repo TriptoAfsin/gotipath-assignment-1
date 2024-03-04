@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -7,9 +8,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { removeLocal } from "@/utils/storageUtils";
+import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 
 function UserMenu() {
+  const router = useRouter();
+  const handleLogout = () => {
+    removeLocal("user_info");
+    router.push("/auth/login");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -22,9 +30,14 @@ function UserMenu() {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">Billing</DropdownMenuItem>
+        <DropdownMenuItem
+          className="text-destructive cursor-pointer"
+          onClick={handleLogout}
+        >
+          Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
