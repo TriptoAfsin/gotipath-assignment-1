@@ -4,10 +4,21 @@ This is a Next.js app router based project made for interacting a backend authen
 
 ## Technologies Used
 
-1. 🧠 Language: TypeScript
-1. ⚙️ Framework: Next.js(App Router)
-1. 🎨 Styling: Tailwind CSS, shadcn/ui
-1. 🟢 Misc: Tanstack Query, React Hook Form, Zod, Axios, react-icons etc
+1. 🧠 **Language: TypeScript**
+1. ⚙️ **Framework: Next.js(App Router)**
+1. 🎨 **Styling: Tailwind CSS, shadcn/ui**
+1. 🟢 **Misc: Tanstack Query, React Hook Form, Zod, Axios, react-icons etc**
+
+## Features
+
+1. 📱 Fully responsive(both mobile and desktop)
+   <img src="responsive.png" />
+1. 🔒 Authenticated routes can't be accessed without logging in
+1. 💪 Robust form validation
+1. 🔑 Password strength checker
+   <img src="pass-check.png" />
+1. 🔍 Optimized SEO and meta tags
+   <img src="seo.png" />
 
 ## Project Structure
 
@@ -35,8 +46,10 @@ gotipath-assignment-1/
 |          └── login/
 |          └── register/
 |          └── reset-password/
-|    └── dashboard/
+|    └── dashboard/(🔒)
 |    └── 404
+
+🔒 = "Authenticated Route"
 ```
 
 ## Usage
