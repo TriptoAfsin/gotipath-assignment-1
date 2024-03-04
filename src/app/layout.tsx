@@ -13,7 +13,19 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "Gotipath",
-  description: "Gotipath Simple Auth",
+  description: "Gotipath | CDN, Edge and Cloud Services",
+  openGraph: {
+    title: "Gotipath",
+    images:
+      "https://images.prismic.io/gotipath-website/8e294320-11bb-4ab5-b5a5-2db37626a8e4_og.jpg",
+    description: "Gotipath | CDN, Edge and Cloud Services",
+  },
+  twitter: {
+    title: "Gotipath",
+    description: "Gotipath | CDN, Edge and Cloud Services",
+    images:
+      "https://images.prismic.io/gotipath-website/8e294320-11bb-4ab5-b5a5-2db37626a8e4_og.jpg",
+  },
 };
 
 export default function RootLayout({
