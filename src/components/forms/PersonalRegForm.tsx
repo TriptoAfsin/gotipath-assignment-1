@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 import Label from "@/components/Typography/Label";
@@ -27,6 +27,7 @@ import { useRegister } from "@/hooks/api/useRegister";
 import { setLocal } from "@/utils/storageUtils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import PasswordCheck from "../misc/PasswordCheck";
 import Combobox from "../ui/combobox";
 
 const FormSchema = z.object({
@@ -51,6 +52,7 @@ const FormSchema = z.object({
 function PersonalRegForm() {
   const queryClient = useQueryClient();
   const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -62,6 +64,8 @@ function PersonalRegForm() {
       profession: "",
     },
   });
+
+  const passToCheck = useWatch({ name: "password", control: form?.control });
 
   const onSuccessFunc = (data: any) => {
     console.log("reg data", data);
@@ -248,6 +252,15 @@ function PersonalRegForm() {
               </FormItem>
             )}
           />
+          {passToCheck && (
+            <div className="py-3">
+              <PasswordCheck
+                password={passToCheck}
+                minChars={8}
+                key={passToCheck}
+              />
+            </div>
+          )}
 
           <Button type="submit" className="w-full" disabled={registerLoading}>
             {registerLoading ? "Please wait..." : "Register"}
