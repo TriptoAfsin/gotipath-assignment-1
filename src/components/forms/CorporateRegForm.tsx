@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import Label from "@/components/Typography/Label";
+import ResponsiveFlex from "@/components/layout/ResponsiveFlex";
 import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -15,54 +18,147 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import {
+  COUNTRY_MENU_LIST,
+  PROFESSION_MENU_LIST,
+  TEAM_SIZE_MENU_LIST,
+} from "@/constants/menuList";
+import { useRegister } from "@/hooks/api/useRegister";
+import { setLocal } from "@/utils/storageUtils";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import Combobox from "../ui/combobox";
 
 const FormSchema = z.object({
-  company_name: z.string().min(1, { message: "Organization name is required" }),
+  first_name: z.string().min(1, { message: "First name is required" }),
+  last_name: z.string().min(1, { message: "Last name is required" }),
   email: z.string().email(),
+  phone: z
+    .string()
+    .regex(
+      /(^(01){1}[3456789]{1}(\d){8})$/,
+      "Invalid phone number(e.g 017xxxxxxxx)"
+    ),
+  profession: z.string().min(1, "Profession is required"),
+  team_size: z.string().min(1, "Team size is required"),
+  country: z.string().min(1, "Country is required"),
+  company_name: z.string().min(1, { message: "Organization name is required" }),
   password: z
     .string()
     .min(4, { message: "Password must be at least 4 characters." }),
 });
 
 function CorporateRegForm() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      company_name: "",
+      first_name: "",
+      last_name: "",
+      phone: "",
       email: "",
       password: "",
+      profession: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  const onSuccessFunc = (data: any) => {
+    console.log("reg data", data);
+    setLocal("user_info", data);
     toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      title: "Registration was successful 😁",
+    });
+    router.push("/dashboard");
+  };
+
+  const onErrorFunc = (error: any) => {
+    console.error("reg error", error);
+    toast({
+      title: error?.response?.data?.message || "Registration failed 😢",
+      variant: "destructive",
+    });
+  };
+
+  const {
+    mutate: registerMutate,
+    isPending: registerLoading,
+    isError: registerErr,
+  } = useRegister(onSuccessFunc, onErrorFunc, queryClient);
+
+  function onSubmit(data: any) {
+    registerMutate({
+      ...data,
+      type: "bussiness",
+      accept_terms_and_conditions: true,
     });
   }
 
   return (
     <>
       <Form {...form}>
+        <FormField
+          control={form.control}
+          name="company_name"
+          render={({ field }) => (
+            <FormItem className="space-y-1.5 mb-5">
+              <FormLabel>Organization Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Organization Name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="team_size"
+          render={({ field }) => (
+            <FormItem className="space-y-1.5 mb-5 flex flex-col">
+              <FormLabel>Team Size</FormLabel>
+              <FormControl>
+                <Combobox
+                  data={TEAM_SIZE_MENU_LIST}
+                  placeholder="Your team size"
+                  fieldName="team_size"
+                  setFormValue={form?.setValue}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <form onSubmit={form.handleSubmit(onSubmit)} className="mb-5">
-          <FormField
-            control={form.control}
-            name="company_name"
-            render={({ field }) => (
-              <FormItem className="space-y-1.5 mb-5">
-                <FormLabel>Organization Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Organization Name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
+          <div>
+            <Label>Name</Label>
+            <ResponsiveFlex>
+              <FormField
+                control={form.control}
+                name="first_name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5 mb-5 mr-2">
+                    <FormControl>
+                      <Input placeholder="First Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="last_name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5 mb-5">
+                    <FormControl>
+                      <Input placeholder="Last Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </ResponsiveFlex>
+          </div>
           <FormField
             control={form.control}
             name="email"
@@ -71,6 +167,64 @@ function CorporateRegForm() {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your email address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5">
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter your phone number"
+                    {...field}
+                    type="tel"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="profession"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5 flex flex-col">
+                <FormLabel>Profession</FormLabel>
+                <FormControl>
+                  <Combobox
+                    data={PROFESSION_MENU_LIST}
+                    placeholder="Your profession"
+                    fieldName="profession"
+                    setFormValue={form?.setValue}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5 flex flex-col">
+                <FormLabel>Country</FormLabel>
+                <FormControl>
+                  <Combobox
+                    data={COUNTRY_MENU_LIST}
+                    placeholder="Your country"
+                    fieldName="country"
+                    setFormValue={form?.setValue}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,8 +249,8 @@ function CorporateRegForm() {
             )}
           />
 
-          <Button type="submit" className="w-full">
-            Register
+          <Button type="submit" className="w-full" disabled={registerLoading}>
+            {registerLoading ? "Please wait..." : "Register"}
           </Button>
         </form>
       </Form>

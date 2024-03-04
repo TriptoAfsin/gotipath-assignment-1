@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import Label from "@/components/Typography/Label";
+import ResponsiveFlex from "@/components/layout/ResponsiveFlex";
 import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -15,12 +18,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import {
+  COUNTRY_MENU_LIST,
+  PROFESSION_MENU_LIST,
+  TEAM_SIZE_MENU_LIST,
+} from "@/constants/menuList";
 import { useRegister } from "@/hooks/api/useRegister";
 import { setLocal } from "@/utils/storageUtils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import Label from "../Typography/Label";
-import ResponsiveFlex from "../layout/ResponsiveFlex";
+import Combobox from "../ui/combobox";
 
 const FormSchema = z.object({
   first_name: z.string().min(1, { message: "First name is required" }),
@@ -28,7 +35,14 @@ const FormSchema = z.object({
   email: z.string().email(),
   phone: z
     .string()
-    .regex(/(^(01){1}[3456789]{1}(\d){8})$/, "Invalid phone number"),
+    .regex(
+      /(^(01){1}[3456789]{1}(\d){8})$/,
+      "Invalid phone number(e.g 017xxxxxxxx)"
+    ),
+  profession: z.string().min(1, "Profession is required"),
+  team_size: z.string().min(1, "Team size is required"),
+  country: z.string().min(1, "Country is required"),
+  company_name: z.string().min(1, { message: "Organization name is required" }),
   password: z
     .string()
     .min(4, { message: "Password must be at least 4 characters." }),
@@ -45,6 +59,7 @@ function PersonalRegForm() {
       phone: "",
       email: "",
       password: "",
+      profession: "",
     },
   });
 
@@ -58,9 +73,9 @@ function PersonalRegForm() {
   };
 
   const onErrorFunc = (error: any) => {
-    console.error("login error", error);
+    console.error("reg error", error);
     toast({
-      title: "Registration failed 😢",
+      title: error?.response?.data?.message || "Registration failed 😢",
       variant: "destructive",
     });
   };
@@ -76,10 +91,6 @@ function PersonalRegForm() {
       ...data,
       type: "personal",
       accept_terms_and_conditions: true,
-      profession: "engineer",
-      country: "BD",
-      team_size: "10-50",
-      company_name: "Gotipath",
     });
   }
 
@@ -89,7 +100,6 @@ function PersonalRegForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="mb-5">
           <div>
             <Label>Name</Label>
-
             <ResponsiveFlex>
               <FormField
                 control={form.control}
@@ -142,6 +152,78 @@ function PersonalRegForm() {
                     placeholder="Enter your phone number"
                     {...field}
                     type="tel"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="company_name"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5">
+                <FormLabel>Organization Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Organization Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="profession"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5 flex flex-col">
+                <FormLabel>Profession</FormLabel>
+                <FormControl>
+                  <Combobox
+                    data={PROFESSION_MENU_LIST}
+                    placeholder="Your profession"
+                    fieldName="profession"
+                    setFormValue={form?.setValue}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="team_size"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5 flex flex-col">
+                <FormLabel>Team Size</FormLabel>
+                <FormControl>
+                  <Combobox
+                    data={TEAM_SIZE_MENU_LIST}
+                    placeholder="Your team size"
+                    fieldName="team_size"
+                    setFormValue={form?.setValue}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem className="space-y-1.5 mb-5 flex flex-col">
+                <FormLabel>Country</FormLabel>
+                <FormControl>
+                  <Combobox
+                    data={COUNTRY_MENU_LIST}
+                    placeholder="Your country"
+                    fieldName="country"
+                    setFormValue={form?.setValue}
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />

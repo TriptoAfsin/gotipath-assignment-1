@@ -52,7 +52,7 @@ function LoginForm() {
   const onErrorFunc = (error: any) => {
     console.error("login error", error);
     toast({
-      title: "Login failed 😢",
+      title: error?.response?.data?.message || "Login failed 😢",
       variant: "destructive",
     });
   };
