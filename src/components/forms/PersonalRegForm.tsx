@@ -79,11 +79,13 @@ function PersonalRegForm() {
 
   const onErrorFunc = (error: any) => {
     toast({
-      title: error?.response?.data?.details
-        ? error?.response?.data?.details
-        : error?.response?.data?.message
-        ? error?.response?.data?.message
-        : "Registration failed 😢",
+      title:
+        error?.response?.data?.details &&
+        !Array.isArray(error?.response?.data?.details)
+          ? error?.response?.data?.details
+          : error?.response?.data?.message
+          ? error?.response?.data?.message
+          : "Registration failed 😢",
       variant: "destructive",
     });
   };
